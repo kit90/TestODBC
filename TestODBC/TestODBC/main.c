@@ -100,8 +100,7 @@ void processStatements(SQLHSTMT stmt) {
         if (wcsstr(statementString, L"tables") == statementString) {
             /* Retrieve a list of tables. */
             ret = SQLTablesW(stmt, NULL, 0, NULL, 0, NULL, 0, NULL, 0);
-        }
-        else if (wcsstr(statementString, L"columns") == statementString) {
+        } else if (wcsstr(statementString, L"columns") == statementString) {
             const wchar_t *delim = L" \t\n\v\f\r"; // All whitespace characters.
             wchar_t *next_token;
 
@@ -114,11 +113,9 @@ void processStatements(SQLHSTMT stmt) {
 
             /* Retrieve a list of columns. */
             ret = SQLColumnsW(stmt, NULL, 0, NULL, 0, token, SQL_NTS, NULL, 0);
-        }
-        else if (wcsstr(statementString, L"quit") == statementString) {
+        } else if (wcsstr(statementString, L"quit") == statementString) {
             break;
-        }
-        else {
+        } else {
             /* Execute the SQL statement statementString. */
             ret = SQLExecDirectW(stmt, statementString, SQL_NTS);
         }
@@ -238,8 +235,7 @@ void displayResults(SQLHSTMT stmt) {
             if (columns[i].indicator == SQL_NULL_DATA) {
                 wprintf(columns[i].fChar ? DISPLAY_FORMAT_C : DISPLAY_FORMAT,
                     columns[i].cDisplaySize, columns[i].cDisplaySize, L"<NULL>");
-            }
-            else {
+            } else {
                 wprintf(columns[i].fChar ? DISPLAY_FORMAT_C : DISPLAY_FORMAT, 
                     columns[i].cDisplaySize, columns[i].cDisplaySize, columns[i].buf);
             }
